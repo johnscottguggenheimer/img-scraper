@@ -1,0 +1,10 @@
+{
+  "name": "img-scraper-proxy",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.33.1"
+  }
+}
