@@ -5,6 +5,8 @@ import { downloadImages, parseUrls } from "@/lib/download";
 import { buildZip } from "@/lib/zip";
 
 const PROXY_STORAGE_KEY = "img-scraper-proxy-url";
+const DEFAULT_PROXY_URL =
+  "https://img-scraper-proxy.receptbok.workers.dev";
 
 type Result = {
   downloaded: number;
@@ -19,7 +21,7 @@ function countUrls(raw: string): number {
 
 export default function HomePage() {
   const [urls, setUrls] = useState("");
-  const [proxyUrl, setProxyUrl] = useState("");
+  const [proxyUrl, setProxyUrl] = useState(DEFAULT_PROXY_URL);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
@@ -130,17 +132,15 @@ export default function HomePage() {
             CORS-proxy (valfritt)
           </label>
           <p className="text-sm text-zinc-600">
-            GitHub Pages kör allt i webbläsaren. Många bild-URL:er blockeras av
-            CORS — då behövs en liten proxy (medföljer i{" "}
-            <code className="rounded bg-zinc-100 px-1">worker/</code> för
-            Cloudflare).
+            Förvald Cloudflare-proxy som kringgår CORS. Lämna som den är om du
+            inte vet vad du gör.
           </p>
           <input
             id="proxy"
             type="url"
             value={proxyUrl}
             onChange={(event) => setProxyUrl(event.target.value)}
-            placeholder="https://img-scraper-proxy.ditt-konto.workers.dev"
+            placeholder={DEFAULT_PROXY_URL}
             className="w-full rounded-lg border border-zinc-200 px-3 py-2 font-mono text-sm outline-none ring-zinc-900/10 focus:ring-2"
           />
         </div>
